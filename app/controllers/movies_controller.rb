@@ -6,6 +6,24 @@ class MoviesController < ApplicationController
     render({ :template => "movie_templates/index" })
   end
 
+  def create
+    movie = Movie.new
+    movie.title = params.fetch("the_title")
+    movie.year = params.fetch("the_year")
+    movie.duration = params.fetch("the_duration")
+    movie.description = params.fetch("the_description")
+    movie.image = params.fetch("the_image")
+
+    movie.director_id = params.fetch("the_director_id")
+
+    movie.save
+
+    redirect_to("/movies")
+
+
+
+  end
+
   def show
     the_id = params.fetch("path_id")
 
