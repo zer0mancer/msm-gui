@@ -36,5 +36,22 @@ class ActorsController < ApplicationController
     redirect_to("/actors")
   end
 
+  def update
+    actor_id = params.fetch("path_id")
+
+    matching_actor = Actor.where({:id => actor_id})
+    actor = matching_actor.at(0)
+
+    actor.name = params.fetch("name")
+    actor.dob = params.fetch("dob")
+    actor.bio = params.fetch("bio")
+    actor.image = params.fetch("image")
+
+    actor.save
+
+    redirect_to("/actors/#{actor.id}")
+
+  end
+
 
 end
