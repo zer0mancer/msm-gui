@@ -6,6 +6,16 @@ class MoviesController < ApplicationController
     render({ :template => "movie_templates/index" })
   end
 
+  def destroy
+
+    movie_id = params.fetch("path_id")
+    matching_movie = Movie.where({:id => movie_id })
+    the_movie = matching_movie.at(0)
+    the_movie.destroy
+    
+    redirect_to("/movies")
+  end
+
   def create
     movie = Movie.new
     movie.title = params.fetch("the_title")
@@ -32,4 +42,6 @@ class MoviesController < ApplicationController
 
     render({ :template => "movie_templates/show" })
   end
+
+
 end
