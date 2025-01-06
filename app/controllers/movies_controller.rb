@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
     matching_movie = Movie.where({:id => movie_id })
     the_movie = matching_movie.at(0)
     the_movie.destroy
-    
+
     redirect_to("/movies")
   end
 
@@ -42,6 +42,27 @@ class MoviesController < ApplicationController
 
     render({ :template => "movie_templates/show" })
   end
+
+  def update
+    movie_id = params.fetch("path_id")
+
+    matching_movie = Movie.where({:id => movie_id})
+    movie = matching_movie.at(0)
+
+    movie.title = params.fetch("the_title")
+    movie.year = params.fetch("the_year")
+    movie.duration = params.fetch("the_duration")
+    movie.description = params.fetch("the_description")
+    movie.image = params.fetch("the_image")
+
+    movie.director_id = params.fetch("the_director_id")
+
+    movie.save
+
+    redirect_to("/movies/#{movie.id}")
+
+  end
+
 
 
 end
